@@ -28,7 +28,7 @@ class RegistrasiController extends Controller
      */
     public function create()
     {
-        $getRow = Registrasi::orderBy('id', 'DESC')->get();
+        $getRow = Registrasi::orderBy('noreg', 'DESC')->get();
         $rowCount = $getRow->count();
         
         $lastId = $getRow->first();
@@ -36,9 +36,7 @@ class RegistrasiController extends Controller
         $kode = "0001";
         
         if ($rowCount > 0) {
-            if ($lastId->id < 9) {
-                    $kode = "000".''.($lastId->id + 1);
-            }
+            $kode = "000".''.($lastId->noreg + 1);
         }
         return view('create', compact('kode'));
     }
